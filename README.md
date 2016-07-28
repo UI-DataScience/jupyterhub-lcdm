@@ -1,4 +1,4 @@
-# JupyterHub deployment for ACCY 570 & 571
+# JupyterHub deployment for LCDM on Nebula
 
 This repository contains an Ansible playbook for launching JupyterHub for
 [The Laboratory for Cosmological Data Mining](http://ui-datascience.github.io/)
