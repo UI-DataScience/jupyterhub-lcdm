@@ -1,11 +1,11 @@
 # JupyterHub deployment for ACCY 570 & 571
 
 This repository contains an Ansible playbook for launching JupyterHub for
-ACCY 570: Data Analytics Foundations for Accountancy and
-ACCY 571: Statistical Analyses for Accountancy
-classes at the University of Illinois.
+[The Laboratory for Cosmological Data Mining](http://ui-datascience.github.io/)
+research group at the University of Illinois.
 
-See also the [INFO490 setup](https://github.com/EdwardJKim/jupyterhub-info490).
+See also the [INFO490 setup](https://github.com/EdwardJKim/jupyterhub-info490)
+and the [ACCY570 setup](https://github.com/edwardjkim/jupyterhub-accounting).
 
 The setup is inspired by [the compmodels class](https://github.com/compmodels/jupyterhub-deploy)
 but there are some major differences:
@@ -50,8 +50,8 @@ In most cases this will work better than on the open Internet.
 ### Clone Git repository
 
 ```shell
-$ git clone https://github.com/edwardjkim/jupyterhub-accounting
-$ cd jupyterhub-accounting
+$ git clone https://github.com/ui-datascience/jupyterhub-lcdm
+$ cd jupyterhub-lcdm
 ```
 
 ### Install Docker
