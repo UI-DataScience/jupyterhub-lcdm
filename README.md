@@ -10,15 +10,14 @@ and the [ACCY570 setup](https://github.com/edwardjkim/jupyterhub-accounting).
 The setup is inspired by [the compmodels class](https://github.com/compmodels/jupyterhub-deploy)
 but there are some major differences:
 
-1.  Shibboleth authentication: Jupyterhub runs behind Shibboleth (via Apache).
-2.  [Consul](https://www.consul.io/): Consul serves as the back-end discovery service
+1.  [Consul](https://www.consul.io/): Consul serves as the back-end discovery service
     for the Swarm cluster.
-3.  Instead of creating creating users on the host system and using the
+2.  Instead of creating creating users on the host system and using the
     [systemuser Docker image](https://github.com/jupyter/dockerspawner/tree/master/systemuser),
     we change the ownership of the files on the host system to the `jupyter` user and mount
     the appropriate directory onto the
     [singleuser Docker image](https://github.com/jupyter/dockerspawner/tree/master/singleuser).
-4.  CentOS, instead of Ubuntu.
+3.  CentOS, instead of Ubuntu.
 
 ## Overview
 
