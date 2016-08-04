@@ -1,13 +1,8 @@
-FROM lcdm/accy
+FROM jupyter/datascience-notebook
 
 USER root
 
 CMD ["start-singleuser.sh"]
 
-USER data_scientist
+USER $NB_USER
 
-RUN mkdir -p /home/$NB_USER/.jupyter/custom
-ADD logo.png /home/$NB_USER/.jupyter/custom/logo.png
-ADD custom.css /home/$NB_USER/.jupyter/custom/custom.css
-
-ENV PYTHONPATH /home/data_scientist/.info490/rubric
