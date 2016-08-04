@@ -19,17 +19,14 @@
     </Proxy>
 
     ProxyPreserveHost on
-    ProxyPass /hub http://{{ jupyterhub_host }}:8000/hub
-    ProxyPassReverse /hub http://{{ jupyterhub_host }}:8000/hub
+    ProxyPass / http://{{ jupyterhub_host }}:8000/
+    ProxyPassReverse / http://{{ jupyterhub_host }}:8000/
 
-    ProxyPass /user http://{{ jupyterhub_host }}:8000/user
-    ProxyPassReverse /user http://{{ jupyterhub_host }}:8000/user
+    Header edit Referer https://{{ fqdn }}:8888/hub/admin {{ fqdn }}/hub
+    RequestHeader edit Referer https://{{ fqdn }}:8888/hub/admin {{ fqdn }}/hub
 
-    Header edit Referer https://{{ ansible_host }}:8888/hub/admin {{ ansible_host }}/hub
-    RequestHeader edit Referer https://{{ ansible_host }}:8888/hub/admin {{ ansible_host }}/hub
-
-    Header edit Referer https://{{ ansible_host }}:8888/hub/home {{ ansible_host }}/hub
-    RequestHeader edit Referer https://{{ ansible_host }}:8888/hub/home {{ ansible_host }}/hub
+    Header edit Referer https://{{ fqdn }}:8888/hub/home {{ fqdn }}/hub
+    RequestHeader edit Referer https://{{ fqdn }}:8888/hub/home {{ fqdn }}/hub
 
     Header set Remote-User %{REMOTE_USER}s
     RequestHeader set Remote-User %{REMOTE_USER}s
