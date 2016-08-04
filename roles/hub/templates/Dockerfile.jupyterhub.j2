@@ -16,6 +16,8 @@ ADD jupyterhub_config.py /srv/jupyterhub_config/jupyterhub_config.py
 ADD addusers.sh /srv/jupyterhub_config/addusers.sh
 ADD userlist /srv/jupyterhub_config/userlist
 
+ADD login.html /opt/conda/share/jupyter/hub/templates/login.html
+
 EXPOSE 8080
 EXPOSE 8001
 

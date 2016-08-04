@@ -19,3 +19,6 @@
 
 - name: create the userlist
   template: src=userlist.j2 dest=/srv/jupyterhub/userlist
+
+- name: copy custom login html
+  copy: src=login.html dest=/srv/jupyterhub/login.html
