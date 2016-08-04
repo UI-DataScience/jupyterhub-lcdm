@@ -11,20 +11,11 @@
 - name: create the jupyterhub configuration file
   template: src=jupyterhub_config.py.j2 dest=/srv/jupyterhub/jupyterhub_config.py
 
-- name: create the remote user authenticator script
-  copy: src=remote_user_auth.py dest=/srv/jupyterhub/remote_user_auth.py
-
 - name: copy swarm spawner script
   copy: src=swarmspawner.py dest=/srv/jupyterhub/swarmspawner.py
 
-- name: create the jupyterhub_users directory
-  file: path=/srv/jupyterhub_users state=directory
+- name: copy adduser script
+  copy: src=addusers.sh dest=/srv/jupyterhub/addusers.sh
 
 - name: create the userlist
-  template: src=userlist.j2 dest=/srv/jupyterhub_users/userlist
-
-- name: copy the home jinja template
-  copy: src=home.html dest=/srv/jupyterhub/home.html
-
-- name: copy logo file
-  copy: src=logo.png dest=/srv/jupyterhub/logo.png
+  template: src=userlist.j2 dest=/srv/jupyterhub/userlist

@@ -17,7 +17,7 @@ class SwarmSpawner(DockerSpawner):
 
     container_ip = '0.0.0.0'
 
-    singleuser = Unicode('jupyter', config=True)
+    singleuser = Unicode('jovyan', config=True)
 
     @gen.coroutine
     def lookup_node_name(self):
@@ -40,12 +40,6 @@ class SwarmSpawner(DockerSpawner):
             node, ip_port = node_info[i]
             self.node_info[node.strip()] = ip_port.strip().split(":")[0]
         self.log.debug("Swarm nodes are: {}".format(self.node_info))
-
-        # specify extra host configuration
-        if extra_host_config is None:
-            extra_host_config = {}
-        if 'mem_limit' not in extra_host_config:
-            extra_host_config['mem_limit'] = '1g'
 
         # specify extra creation options
         if extra_create_kwargs is None:

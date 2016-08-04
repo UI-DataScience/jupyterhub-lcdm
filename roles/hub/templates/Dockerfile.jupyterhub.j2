@@ -11,16 +11,10 @@ RUN apt-get update && \
 RUN mkdir /srv/jupyterhub_config
 WORKDIR /srv/jupyterhub_config
 
-ADD remote_user_auth.py /srv/jupyterhub_config/remote_user_auth.py
-ADD dummyauthenticator.py /srv/jupyterhub_config/dummyauthenticator.py
 ADD swarmspawner.py /srv/jupyterhub_config/swarmspawner.py
 ADD jupyterhub_config.py /srv/jupyterhub_config/jupyterhub_config.py
-
-RUN mkdir -p /usr/local/share/jupyter/hub/static/images
-ADD home.html /opt/conda/share/jupyter/hub/templates/home.html
-ADD logo.png /usr/local/share/jupyter/hub/static/images/logo.png
- 
-RUN mkdir /srv/jupyterhub_users
+ADD addusers.sh /srv/jupyterhub_config/addusers.sh
+ADD userlist /srv/jupyterhub_config/userlist
 
 EXPOSE 8080
 EXPOSE 8001
@@ -28,5 +22,10 @@ EXPOSE 8001
 # environment variable for swarm
 ENV DOCKER_HOST https://swarm:2375
 
+ENV OAUTH_CALLBACK_URL {{oauth_callback_url}}
+ENV GITHUB_CLIENT_ID {{github_client_id}}
+ENV GITHUB_CLIENT_SECRET {{github_client_secret}}
+
 ENTRYPOINT ["jupyterhub", "-f", "/srv/jupyterhub_config/jupyterhub_config.py"]
 
+RUN ["sh", "/srv/jupyterhub_config/addusers.sh"]
