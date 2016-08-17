@@ -1,6 +1,7 @@
 from tornado import gen
 from dockerspawner import DockerSpawner
 import os
+import shutil
 from traitlets import Unicode
 
 # urllib3 complains that we're making unverified HTTPS connections to swarm,
@@ -18,6 +19,8 @@ class SwarmSpawner(DockerSpawner):
     container_ip = '0.0.0.0'
 
     singleuser = Unicode('jovyan', config=True)
+
+    root_dir = Unicode('/export/home', config=True)
 
     @gen.coroutine
     def lookup_node_name(self):
@@ -47,6 +50,12 @@ class SwarmSpawner(DockerSpawner):
         if 'working_dir' not in extra_create_kwargs:
             extra_create_kwargs['working_dir'] = "/home/{}".format(self.singleuser)
 
+        # create and set permissions of home dir if it doesn't exist
+        user_dir = os.path.join(self.root_dir, self.user.name)
+        if not os.path.exists(user_dir):
+            os.makedirs(user_dir)
+        os.chown(user_dir, 1000, 1000)
+        
         # start the container
         yield DockerSpawner.start(
             self, image=image,
