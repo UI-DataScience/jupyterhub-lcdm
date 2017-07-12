@@ -1,12 +1,20 @@
 ---
 - name: create the singleuser directory
   file: path=/srv/singleuser state=directory
+  tags:
+  - singleuser
 
 - name: copy the Dockerfile to the singleuser directory
   template: src=Dockerfile.singleuser.j2 dest=/srv/singleuser/Dockerfile
+  tags:
+  - singleuser
 
-- name: pull lcdm/accy image
+- name: pull jupyter/datascience-notebook image
   shell: docker pull jupyter/datascience-notebook
+  tags:
+  - singleuser
 
 - name: build singleuser image
   shell: docker build -t singleuser /srv/singleuser
+  tags:
+  - singleuser
