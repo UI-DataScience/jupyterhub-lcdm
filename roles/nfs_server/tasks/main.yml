@@ -40,6 +40,9 @@
   tags:
   - add_users
 
+- name: create shared directory
+  file: path=/mnt/volume/shared state=directory group=100 owner=1000 recurse=yes
+
 - name: start nfs-server
   service: name=nfs state=started
 

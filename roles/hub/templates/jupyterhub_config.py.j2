@@ -35,7 +35,8 @@ c.DockerSpawner.tls_cert = os.environ['DOCKER_TLS_CERT']
 c.DockerSpawner.tls_key = os.environ['DOCKER_TLS_KEY']
 c.DockerSpawner.remove_containers = True
 c.DockerSpawner.volumes = {
-    '/home/{username}': '/home/jovyan'
+    '/home/{username}': '/home/jovyan',
+    '/shared': '/home/jovyan/GROUP_SHARED'
 }
 
 with open('/srv/jupyterhub_config/userlist') as f:
