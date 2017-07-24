@@ -54,7 +54,7 @@ class SwarmSpawner(DockerSpawner):
         user_dir = os.path.join(self.root_dir, self.user.name)
         if not os.path.exists(user_dir):
             os.makedirs(user_dir)
-        os.chown(user_dir, 1000, 1000)
+        os.chown(user_dir, 1000, 100)
         
         # start the container
         yield DockerSpawner.start(
