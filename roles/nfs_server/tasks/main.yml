@@ -32,16 +32,32 @@
 - name: create /mnt/volume/home
   file: path=/mnt/volume/home state=directory
 
-- name: create home directories
-  file: path=/mnt/volume/home/{{ item }} state=directory group=1000 owner=1000 recurse=yes
+- name: stat home directories if they exist
+  stat: path=/mnt/volume/home/{{ item }}
   with_items:
   - "{{ jupyterhub_admins|lower }}"
   - "{{ jupyterhub_users|lower }}"
+  register: home_exists
+
+- name: create home directories
+  file: path={{ item.item }} state=directory group=100 owner=1000 recurse=yes
+  when: item.stat.exists == false
+  with_items:
+  - "{{ home_exists.results }}"
   tags:
   - add_users
 
+- name: stat shared directory if it exists
+  stat: path={{ item }}
+  register: shared_exists
+  with_items:
+  - /mnt/volume/shared
+
 - name: create shared directory
-  file: path=/mnt/volume/shared state=directory group=100 owner=1000 recurse=yes
+  file: path={{ item.item }} state=directory group=100 owner=1000 recurse=yes
+  when: item.stat.exists == false
+  with_items:
+  - "{{ shared_exists.results }}"
 
 - name: start nfs-server
   service: name=nfs state=started
