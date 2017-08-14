@@ -44,6 +44,12 @@ class SwarmSpawner(DockerSpawner):
             self.node_info[node.strip()] = ip_port.strip().split(":")[0]
         self.log.debug("Swarm nodes are: {}".format(self.node_info))
 
+        # specify extra host configuration
+        if extra_host_config is None:
+            extra_host_config = {}
+        if 'mem_limit' not in extra_host_config:
+            extra_host_config['mem_limit'] = '8g'
+
         # specify extra creation options
         if extra_create_kwargs is None:
             extra_create_kwargs = {}
