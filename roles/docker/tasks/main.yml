@@ -55,7 +55,7 @@
   file: path=/lib/systemd/system/docker.service.d state=directory
 
 - name: copy systemd configuration file
-  copy: src=docker-host.conf dest=/lib/systemd/system/docker.service.d/docker-host.conf
+  template: src=docker-host.conf.j2 dest=/lib/systemd/system/docker.service.d/docker-host.conf
 
 - name: stop docker daemon
   service: name=docker state=stopped
