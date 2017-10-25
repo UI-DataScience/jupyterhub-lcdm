@@ -1,6 +1,7 @@
 # Configuration file for Jupyter Hub
 import os
 import sys
+from oauthenticator.github import GitHubOAuthenticator
 sys.path.insert(0, '/srv/jupyterhub_config')
 
 c = get_config()
@@ -11,10 +12,10 @@ c.JupyterHub.db_url = 'sqlite:////srv/jupyterhub/jupyterhub.sqlite'
 
 c.JupyterHub.admin_access = True
 
-c.JupyterHub.authenticator_class = 'oauthenticator.GitHubOAuthenticator'
+c.JupyterHub.authenticator_class = GitHubOAuthenticator
 c.GitHubOAuthenticator.oauth_callback_url = os.environ['OAUTH_CALLBACK_URL']
-c.GitHubOAuthenticator.client_id = os.environ['GITHUB_CLIENT_ID']
-c.GitHubOAuthenticator.client_secret = os.environ['GITHUB_CLIENT_SECRET']
+c.GitHubOAuthenticator.client_id = os.environ['OAUTH_CLIENT_ID']
+c.GitHubOAuthenticator.client_secret = os.environ['OAUTH_CLIENT_SECRET']
 
 c.Authenticator.admin_users = admin = set()
 c.Authenticator.whitelist = whitelist = set()
@@ -31,9 +32,11 @@ c. JupyterHub.confirm_no_ssl = True
 
 c.JupyterHub.spawner_class = 'swarmspawner.SwarmSpawner'
 c.DockerSpawner.container_image = 'singleuser'
-c.DockerSpawner.tls_config = {
-    'client_cert': (os.environ['DOCKER_TLS_CERT'], os.environ['DOCKER_TLS_KEY'])
-}
+
+# dockerspawner 0.7
+c.DockerSpawner.tls_cert = os.environ['DOCKER_TLS_CERT']
+c.DockerSpawner.tls_key = os.environ['DOCKER_TLS_KEY']
+
 c.DockerSpawner.remove_containers = True
 c.DockerSpawner.volumes = {
     '/home/{username}': '/home/jovyan',

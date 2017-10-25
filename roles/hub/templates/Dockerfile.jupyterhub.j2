@@ -5,8 +5,8 @@ MAINTAINER Edward J Kim <edward.junhyung.kim@gmail.com>
 RUN apt-get update && \
     pip install --upgrade pip && \
     pip install docker==2.3.0 && \
-    pip install git+git://github.com/jupyter/dockerspawner.git && \
-    pip install git+git://github.com/jupyter/oauthenticator.git
+    pip install dockerspawner==0.7 && \
+    pip install oauthenticator==0.5
 
 RUN mkdir /srv/jupyterhub_config
 WORKDIR /srv/jupyterhub_config
@@ -25,8 +25,8 @@ EXPOSE 8001
 ENV DOCKER_HOST https://swarm:2375
 
 ENV OAUTH_CALLBACK_URL {{oauth_callback_url}}
-ENV GITHUB_CLIENT_ID {{github_client_id}}
-ENV GITHUB_CLIENT_SECRET {{github_client_secret}}
+ENV OAUTH_CLIENT_ID {{oauth_client_id}}
+ENV OAUTH_CLIENT_SECRET {{oauth_client_secret}}
 
 ENTRYPOINT ["jupyterhub", "-f", "/srv/jupyterhub_config/jupyterhub_config.py"]
 
