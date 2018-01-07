@@ -47,8 +47,8 @@ class SwarmSpawner(DockerSpawner):
         # specify extra host configuration
         if extra_host_config is None:
             extra_host_config = {}
-        if 'mem_limit' not in extra_host_config:
-            extra_host_config['mem_limit'] = '8g'
+#        if 'mem_limit' not in extra_host_config:
+#            extra_host_config['mem_limit'] = '8g'
 
         # specify extra creation options
         if extra_create_kwargs is None:

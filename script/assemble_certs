@@ -28,11 +28,12 @@ ca_name = "ca"
 # the certificate and key are `hub-cert.pem` and `hub-key.pem`, respectively,
 # then the base name is 'hub'.
 name_map = {
-    "proxy_server": "proxy_server",
+#    "proxy_server": "proxy_server",
     "jupyterhub_host": "jupyterhub_host",
     "jupyterhub_node1": "jupyterhub_node1",
     "jupyterhub_node2": "jupyterhub_node2",
     "jupyterhub_node3": "jupyterhub_node3",
+    "jupyterhub_node4": "jupyterhub_node4",
 }
 
 ################################################################################
